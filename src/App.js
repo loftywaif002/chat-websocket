@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import FaceIcon from '@material-ui/icons/FaceOutlined';
 import './App.css'
 import { generateUser } from '../src/actions'
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   addMessage: {
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: 'left',
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
     height: '12vh',
@@ -54,12 +55,19 @@ const useStyles = makeStyles(theme => ({
   divider: {
     margin: theme.spacing(2, 0),
   },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
 }));
 
 
 const App = () => {
+   // Declare a new state variable, which we'll call "name"
+  const [name, setName] = useState(0);
   useEffect(()=>{
-   store.dispatch(generateUser())
+  let { user } = store.dispatch(generateUser())
+   setName(user)
   }, [])
    const classes = useStyles()
     return(
@@ -74,7 +82,9 @@ const App = () => {
                    <ListItemIcon>
                      <FaceIcon />
                    </ListItemIcon>
-                  <ListItemText primary="TEST" />
+                   <Typography paragraph={true} style={{ paddingTop: "12px" }}>
+                       {name}
+                   </Typography>
                 </ListItem>
 
             </List>
@@ -85,7 +95,17 @@ const App = () => {
           <h2 style={{backgroundColor:'#673ab7', display: 'inline-block', width: '20%',height:'6%', borderRadius: '5px', color: 'white'}}>Messages</h2>
           </Paper>
             <Paper className={classes.addMessage}>
-            
+            <TextField
+              InputProps={{
+                disableUnderline: true
+              }}
+              id="standard-bare"
+              className={classes.textField}
+              placeholder="Type here"
+              margin="normal"
+              inputProps={{ 'aria-label': 'bare' }}
+              fullWidth
+             />
             </Paper>
           </Grid>
         </Grid>  
