@@ -9,10 +9,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import FaceIcon from '@material-ui/icons/FaceOutlined';
 import './App.css'
-import { generateUser } from '../src/actions'
-//Redux
-import { Provider } from 'react-redux'
-import store from './store'
+import { connect } from 'react-redux'
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -64,14 +62,14 @@ const useStyles = makeStyles(theme => ({
 
 const App = () => {
    // Declare a new state variable, which we'll call "name"
-  const [name, setName] = useState(0);
-  useEffect(()=>{
-  let { user } = store.dispatch(generateUser())
-   setName(user)
-  }, [])
+  // const [name, setName] = useState(0);
+  // useEffect(()=>{
+  // let { users } = store.dispatch(getAllUsers())
+  //  setName(user)
+  //  store.dispatch(sendNewMessage('my test message', user))
+  // }, [])
    const classes = useStyles()
     return(
-      <Provider store={store}>
         <Grid container spacing={2}>
           <Grid item xs={3}>
            <Paper className={classes.users} style={{overflowY: 'scroll'}}>
@@ -83,7 +81,7 @@ const App = () => {
                      <FaceIcon />
                    </ListItemIcon>
                    <Typography paragraph={true} style={{ paddingTop: "12px" }}>
-                       {name}
+                   
                    </Typography>
                 </ListItem>
 
@@ -93,6 +91,7 @@ const App = () => {
         <Grid item xs={9}>
           <Paper className={classes.messages}>
           <h2 style={{backgroundColor:'#673ab7', display: 'inline-block', width: '20%',height:'6%', borderRadius: '5px', color: 'white'}}>Messages</h2>
+
           </Paper>
             <Paper className={classes.addMessage}>
             <TextField
@@ -103,14 +102,16 @@ const App = () => {
               className={classes.textField}
               placeholder="Type here"
               margin="normal"
-              inputProps={{ 'aria-label': 'bare' }}
               fullWidth
              />
             </Paper>
           </Grid>
         </Grid>  
-      </Provider>
     )
 }
 
-export default App;
+const mapStateToProps = state =>({
+   
+})
+
+export default connect(mapStateToProps)(App);

@@ -1,10 +1,19 @@
-import { NEW_USER } from './types'
-import faker from 'faker'
+import { USERS, NEW_MESSAGE } from './types'
+import shortid from 'shortid'
 
-export const generateUser = () => {
-  let user = faker.name.findName()
+export const getAllUsers = (users) => {
   return{
-    type: NEW_USER,
-    user
+    type: USERS,
+    users
+  }
+}
+
+export const sendNewMessage = (message, user) => {
+  let id = shortid.generate()
+  return {
+    type: NEW_MESSAGE,
+    id,
+    message,
+    user 
   }
 }

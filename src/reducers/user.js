@@ -1,10 +1,10 @@
-import { NEW_USER } from '../actions/types'
+import { USERS } from '../actions/types'
 
 const user = (state=[],action) => {
   const { type } = action
   switch(type){
-    case NEW_USER:
-      return action.user
+    case USERS:
+      return action.users
     default:
       return state
   }

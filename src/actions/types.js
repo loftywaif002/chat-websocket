@@ -1,1 +1,2 @@
-export const NEW_USER = 'NEW_USER'
+export const USERS = 'USERS'
+export const NEW_MESSAGE = 'NEW_MESSAGE'
