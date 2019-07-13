@@ -1,6 +1,6 @@
 import { USERS } from '../actions/types'
 
-const user = (state=[],action) => {
+const users = (state=[],action) => {
   const { type } = action
   switch(type){
     case USERS:
@@ -10,4 +10,4 @@ const user = (state=[],action) => {
   }
 }
 
-export default user
+export default users

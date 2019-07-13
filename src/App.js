@@ -60,14 +60,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const App = () => {
-   // Declare a new state variable, which we'll call "name"
-  // const [name, setName] = useState(0);
-  // useEffect(()=>{
-  // let { users } = store.dispatch(getAllUsers())
-  //  setName(user)
-  //  store.dispatch(sendNewMessage('my test message', user))
-  // }, [])
+const App = ({users}) => {
    const classes = useStyles()
     return(
         <Grid container spacing={2}>
@@ -75,16 +68,22 @@ const App = () => {
            <Paper className={classes.users} style={{overflowY: 'scroll'}}>
             <h2 style={{backgroundColor:'#26a69a', display: 'inline-block', width: '40%',height:'5%', borderRadius: '5px',  color: 'white'}}>Users</h2>
             <List style={{maxHeight: '70%', overflow: 'hidden', overflowY: 'scroll'}}>
-                
-                <ListItem button>
-                   <ListItemIcon>
-                     <FaceIcon />
-                   </ListItemIcon>
-                   <Typography paragraph={true} style={{ paddingTop: "12px" }}>
-                   
-                   </Typography>
-                </ListItem>
 
+            {users ? 
+            users.map((item)=>{
+              return(
+                <ListItem button key={item.id}>
+               <ListItemIcon>
+                 <FaceIcon />
+               </ListItemIcon>
+                 <Typography paragraph={true} style={{ paddingTop: "12px" }}>
+                    {item.name}
+                 </Typography>
+               </ListItem>
+              )
+            })   
+            : ''}
+            
             </List>
           </Paper>
         </Grid>
@@ -111,7 +110,7 @@ const App = () => {
 }
 
 const mapStateToProps = state =>({
-   
+   users: state.users
 })
 
 export default connect(mapStateToProps)(App);
